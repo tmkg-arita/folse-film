@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'users',
         'passwords' => 'users',
     ],
 
@@ -58,6 +58,7 @@ return [
         ],
     ],
 
+
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -80,7 +81,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'owner' => [
+        'owners' => [
             'driver' => 'eloquent',
             'model' => App\Models\Owner::class,
         ],
