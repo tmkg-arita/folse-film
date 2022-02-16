@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Owner;
-use App\Models\Film;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Owner;
+use App\Models\Film;
+use InterventionImage;
+
+
+
 
 class FilmController extends Controller
 {
@@ -56,7 +61,7 @@ class FilmController extends Controller
     public function create()
     {
 
-
+        return view('owner.films.create');
     }
 
     /**
@@ -67,7 +72,36 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:20',
+            'infomation' => 'required|string|min:10|max:1500',
+            'movie_image' => 'required|file',
+            'movie_time' => 'required|integer|',
+            'category' => 'required',
+
+        ]);
+
+        $image = $request->movie_image;
+
+        $resizeImage=InterventionImage::make($image)
+        ->resize(1920,1080)->encode();
+
+        $fileName = uniqid(rand().'_');
+        $extension = $image->extension();
+        $faileNameTofilm = $fileName.'.'.$extension;
+        storage::put('public/image'.$faileNameTofilm,$resizeImage);
+
+        Film::create(['name' => $request->name,
+                      'movie_image' =>,
+                      'name' => $request->name,
+                      'name' => $request->name,
+                      'name' => $request->name,
+
+
+        ])
+
+
+
     }
 
     /**
@@ -89,7 +123,7 @@ class FilmController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**

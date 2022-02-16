@@ -21,7 +21,7 @@
     @foreach ($films as $film )
     <a href="{{route('owner.films.edit', ['film' => $film->id])}}">
         <div class="sm:flex flex-wrap m-4">
-            <div class="xl:w-1/4 md:w-1/2 p-4">
+            <div class="xl:w-1/2 md:w-1/2 p-4">
                     <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
                         <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ asset('image/'.$film->movie_image) }}" alt="content">
                         <h2 class="text-lg tracking-widest text-blue-400 font-medium title-font">{{$film -> name}}</h2>
