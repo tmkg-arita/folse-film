@@ -15,7 +15,7 @@ class Film extends Model
         'name',
         'movie_image',
         'movie_time',
-        'cetegory',
+        'category',
         'infomation',
 
     ];

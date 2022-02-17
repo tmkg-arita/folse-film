@@ -18,7 +18,7 @@ class CreateFilmsTable extends Migration
             $table->string('name');
             $table->string('movie_image');
             $table->integer('movie_time');
-            $table->integer('cetegory');
+            $table->integer('category');
             $table->text('infomation');
             $table->timestamps();
         });

@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Http\Requests\FilmStoreRequest;
 use Illuminate\Support\Facades\Route;
 use App\Models\Owner;
 use App\Models\Film;
 use InterventionImage;
+
 
 
 
@@ -48,7 +50,8 @@ class FilmController extends Controller
      }
     public function index()
     {
-        $films=Film::all();
+        // $films=Film::all();
+        $films = Film::paginate(4);
         // dd($films);
         return view('owner.films.index',compact('films'));
     }
@@ -70,18 +73,13 @@ class FilmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FilmStoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:20',
-            'infomation' => 'required|string|min:10|max:1500',
-            'movie_image' => 'required|file',
-            'movie_time' => 'required|integer|',
-            'category' => 'required',
+        //FilmStoreRequest
 
-        ]);
-
+        // dd($request->category);
         $image = $request->movie_image;
+
 
         $resizeImage=InterventionImage::make($image)
         ->resize(1920,1080)->encode();
@@ -89,18 +87,23 @@ class FilmController extends Controller
         $fileName = uniqid(rand().'_');
         $extension = $image->extension();
         $faileNameTofilm = $fileName.'.'.$extension;
-        storage::put('public/image'.$faileNameTofilm,$resizeImage);
+        storage::put('public/images/'.$faileNameTofilm,$resizeImage);
 
-        Film::create(['name' => $request->name,
-                      'movie_image' =>,
+
+echo $faileNameTofilm;
+
+       $film = Film::create([
                       'name' => $request->name,
-                      'name' => $request->name,
-                      'name' => $request->name,
+                      'movie_image' =>$faileNameTofilm,
+                      'movie_time' => (int)$request->movie_time,
+                      'category' => $request->category,
+                      'infomation' => $request->infomation,
 
 
-        ])
-
-
+    ]);
+        $film->save();
+        return redirect()
+        ->route('owner.films.index');
 
     }
 

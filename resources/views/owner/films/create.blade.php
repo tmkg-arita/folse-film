@@ -13,8 +13,11 @@
     </div>
     <form form method="post" action="{{ route('owner.films.store')}}" enctype="multipart/form-data">
             @csrf
+
             <div class="lg:w-1/2 md:w-2/3 mx-auto">
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 <div class="flex flex-wrap -m-2">
+
                     <div class="p-2 w-1/2">
                         <div class="relative">
                             <label for="name" class="leading-7 text-sm text-gray-600">題名<span class="text-xs text-red-600">※必須</span></label>
@@ -24,7 +27,7 @@
                     <div class="p-2 w-1/2">
                         <div class="relative">
                             <label for="movie_time" class="leading-7 text-sm text-gray-600">上映時間<span class="text-xs text-red-600">※必須</br></label>
-                            <input type="text" id="movie_time" name="movei_time" required  value="{{ old('movie_time') }}" class="w-1/4 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">分
+                            <input type="text" id="movie_time" name="movie_time" required  value="{{ old('movie_time') }}" class="w-1/4 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">分
                         </div>
                     </div>
                     <div class="p-2 w-full">
