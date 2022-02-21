@@ -25,33 +25,36 @@ class FilmController extends Controller
      */
 
 
-    public function __construct()
-     {
-        $this -> middleware('auth:owners');
+    // public function __construct()
+    //  {
+    //     $this -> middleware('auth:owners');
 
 
-        $this->middleware(function($request,$next){
-            $id = $request->route()->parameter('film');
-            if(!is_null($id)){
-               $OwnerId = Owner::findOrFail($id)->owner->id;
+    //     $this->middleware(function($request,$next){
+    //         $id = $request->route()->parameter('film');
+    //         if(!is_null($id)){
+    //            $OwnerId = Owner::findOrFail($id)->owner->id;
 
-               $Id = (int)$OwnerId;
+    //            $Id = (int)$OwnerId;
 
-               $ownerId = Auth::id();
+    //            $ownerId = Auth::id();
 
-               if($Id !== $ownerId){
-                   abort(404);
-               }
-            }
+    //            if($Id !== $ownerId){
+    //                abort(404);
+    //            }
+    //         }
 
-            return $next($request);
-        });
+    //         return $next($request);
+    //     });
 
-     }
-    public function index()
+    //  }
+    public function index(Film $film)
     {
         // $films=Film::all();
         $films = Film::paginate(4);
+
+        // モデル側でページネーションしたデータを持ってくる。
+        // $films = $film->paginate();
         // dd($films);
         return view('owner.films.index',compact('films'));
     }
@@ -97,7 +100,7 @@ echo $faileNameTofilm;
                       'movie_image' =>$faileNameTofilm,
                       'movie_time' => (int)$request->movie_time,
                       'category' => $request->category,
-                      'infomation' => $request->infomation,
+                      'information' => $request->information,
 
 
     ]);
@@ -126,7 +129,11 @@ echo $faileNameTofilm;
      */
     public function edit($id)
     {
+        // $idと一致するデータを編集画面に表示するようにする。
+        $filmData=Film::findOrFail($id);
 
+        return view('owner.films.edit',compact('filmData'));
+        // 画像のold作る、path()とか使うみたい。
     }
 
     /**

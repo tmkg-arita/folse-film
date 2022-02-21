@@ -32,8 +32,8 @@
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
-                            <label for="infomation" class="leading-7 text-sm text-gray-600">あらすじ<span class="text-xs text-red-600">※必須</label>
-                            <textarea id="infomation" name="infomation" required  value="{{ old('infomation') }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                            <label for="information" class="leading-7 text-sm text-gray-600">あらすじ<span class="text-xs text-red-600">※必須</label>
+                            <textarea id="information" name="information" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ old('information') }}</textarea>
                         </div>
                     </div>
                     <div class="p-2 w-full">

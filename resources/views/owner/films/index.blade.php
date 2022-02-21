@@ -18,24 +18,29 @@
   </div>
     <!-- ここにforeachが入る -->
 
-    @foreach ($films as $film )
 
-    <a href="{{route('owner.films.edit', ['film' => $film->id])}}">
-        <div class="sm:flex flex-wrap m-4">
-            <div class="xl:flex justify-around flex-wrap w-1/2 md:w-1/2 p-4">
+
+
+        <div class="m-4">
+        <div class="sm:flex justify-around flex-wrap m-4">
+            @foreach ($films as $film )
+
+            <a href="{{route('owner.films.edit', ['film' => $film->id])}}">
                     <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
                         <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ asset('storage/images/'.$film->movie_image) }}" alt="content">
                         <h2 class="text-lg tracking-widest text-blue-400 font-medium title-font">{{$film -> name}}</h2>
                         <h3 class="text-xs text-white font-medium title-font mb-4">あらすじ</h3>
                         <div>
-                            <p class="leading-relaxed text-base">{{$film -> infomation}}</p>
+                            <p class="leading-relaxed text-base">{{$film -> information}}</p>
                         </div>
                     </div>
-            </div>
 
+            </a>
+            @endforeach
+            </div>
         </div>
-    </a>
-  @endforeach
+
+
   {{$films->links()}}
 </section>
 </x-app-layout>

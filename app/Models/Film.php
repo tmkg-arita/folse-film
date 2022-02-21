@@ -16,7 +16,12 @@ class Film extends Model
         'movie_image',
         'movie_time',
         'category',
-        'infomation',
+        'information',
 
     ];
+
+
+    // public function paginate(){
+    //     $this -> paginate(4);
+    // }
 }

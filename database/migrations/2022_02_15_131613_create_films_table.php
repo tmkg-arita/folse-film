@@ -19,7 +19,7 @@ class CreateFilmsTable extends Migration
             $table->string('movie_image');
             $table->integer('movie_time');
             $table->integer('category');
-            $table->text('infomation');
+            $table->text('information');
             $table->timestamps();
         });
     }
