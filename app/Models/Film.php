@@ -9,7 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Film extends Model
 {
+
+
     use HasFactory;
+
+
 
     protected $fillable = [
         'name',
@@ -21,7 +25,8 @@ class Film extends Model
     ];
 
 
-    // public function paginate(){
-    //     $this -> paginate(4);
-    // }
+    public function pagination(){
+        $filmData=$this -> paginate(4);
+        return($filmData);
+    }
 }

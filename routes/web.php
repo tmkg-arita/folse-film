@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('user.dashboard');
 })->middleware(['auth:users'])->name('dashboard');
+
+
+// Route::resource('users',UserController::class)
+// ->middleware('auth:users')
+// ->except(['show']);
+
 
 
 require __DIR__.'/auth.php';

@@ -33,14 +33,20 @@
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
-                            <label for="infomation" class="leading-7 text-sm text-gray-600">あらすじ<span class="text-xs text-red-600">※必須</label>
-                            <textarea id="infomation" name="infomation" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{old('infomation',$filmData->information)}}</textarea>
+                            <label for="information" class="leading-7 text-sm text-gray-600">あらすじ<span class="text-xs text-red-600">※必須</label>
+                            <textarea id="information" name="information" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{old('infomation',$filmData->information)}}</textarea>
+                        </div>
+                    </div>
+                    <div class="p-2 w-1/2">
+                        <div class="relative">
+                            現在の画像
+                            <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ asset('storage/images/'.$filmData->movie_image) }}" alt="content">
                         </div>
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="movie_image" class="leading-7 text-sm text-gray-600">画像<span class="text-xs text-red-600">※必須</label>
-                            <input type="file" id="movie_image" name="movie_image" required value="{{ old('movie_image',$filmData->movie_image) }}" multiple accept="image/jpg,image/jpeg,image/png" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></input>
+                            <input type="file" id="movie_image" name="movie_image" required  multiple accept="image/jpg,image/jpeg,image/png" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></input>
                         </div>
                     </div>
                     <div class="p-2 w-full">

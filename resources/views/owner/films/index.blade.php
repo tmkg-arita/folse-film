@@ -33,9 +33,18 @@
                         <div>
                             <p class="leading-relaxed text-base">{{$film -> information}}</p>
                         </div>
-                    </div>
+                        <!-- 削除ボタンclass指定が出来ない -->
 
-            </a>
+
+                    </div>
+                    </a>
+                    <form method="post" action="{{ route('owner.films.destroy', ['film' => $film->id]) }}">
+                    @csrf
+                    @method('delete')
+                    <div class="md:px-4 py-3">
+                        <button type="submit" onclick="return confirm('本当に削除しますか？')" class="text-white bg-pink-400 border-0 py-1 px-1 focus:outline-none hover:bg-blue-500 rounded">削除する</button>
+                    </div>
+                </form>
             @endforeach
             </div>
         </div>

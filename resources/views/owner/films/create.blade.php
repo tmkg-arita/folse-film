@@ -39,7 +39,7 @@
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="movie_image" class="leading-7 text-sm text-gray-600">画像<span class="text-xs text-red-600">※必須</label>
-                            <input type="file" id="movie_image" name="movie_image" required value="{{ old('movie_image') }}" multiple accept="image/jpg,image/jpeg,image/png" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></input>
+                            <input type="file" id="movie_image" name="movie_image" required  multiple accept="image/jpg,image/jpeg,image/png" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></input>
                         </div>
                     </div>
                     <div class="p-2 w-full">

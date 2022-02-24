@@ -9,6 +9,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use InterventionImage;
+use App\Services\ImageResizeService;
 
 class RegisteredUserController extends Controller
 {
@@ -34,20 +36,32 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
+            'user_image' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'information' => 'string|max:1500',
         ]);
+
+        $userImage = $request->user_image;
+
+        if(!is_null($userImage) && $userImage->isValid()){
+
+            $userToImage = ImageResizeService::upload($userImage,'images');
+         }
 
         Auth::login($user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'user_image' => $userToImage,
+            'information' => $request->information,
         ]));
 
         event(new Registered($user));
 
         return redirect(RouteServiceProvider::HOME);
-    }
+     }
 }

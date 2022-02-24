@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Owner;
 use App\Models\Film;
 use InterventionImage;
+use App\Services\ImageResizeService;
 
 
 
@@ -50,12 +51,16 @@ class FilmController extends Controller
     //  }
     public function index(Film $film)
     {
-        // $films=Film::all();
-        $films = Film::paginate(4);
+
+        $films = $film->paginate(4);
+        // dd($films);
+
+
 
         // モデル側でページネーションしたデータを持ってくる。
-        // $films = $film->paginate();
-        // dd($films);
+          // var_dump($film);
+        // $films = $film->pagination();
+
         return view('owner.films.index',compact('films'));
     }
 
@@ -83,21 +88,19 @@ class FilmController extends Controller
         // dd($request->category);
         $image = $request->movie_image;
 
+        //サービスで切り離したupload関数を使って画像のリサイズを行っている。
+        $image = $request->movie_image;
+        if(!is_null($image) && $image->isValid()){
 
-        $resizeImage=InterventionImage::make($image)
-        ->resize(1920,1080)->encode();
-
-        $fileName = uniqid(rand().'_');
-        $extension = $image->extension();
-        $faileNameTofilm = $fileName.'.'.$extension;
-        storage::put('public/images/'.$faileNameTofilm,$resizeImage);
+           $filmToData = ImageResizeService::upload($image,'images');
+        }
 
 
-echo $faileNameTofilm;
+        // echo $faileNameTofilm;
 
        $film = Film::create([
                       'name' => $request->name,
-                      'movie_image' =>$faileNameTofilm,
+                      'movie_image' =>$filmToData,
                       'movie_time' => (int)$request->movie_time,
                       'category' => $request->category,
                       'information' => $request->information,
@@ -132,6 +135,7 @@ echo $faileNameTofilm;
         // $idと一致するデータを編集画面に表示するようにする。
         $filmData=Film::findOrFail($id);
 
+
         return view('owner.films.edit',compact('filmData'));
         // 画像のold作る、path()とか使うみたい。
     }
@@ -143,9 +147,29 @@ echo $faileNameTofilm;
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FilmStoreRequest $request, $id)
     {
-        //
+        // 編集画面のformから受け取ったデータを上書きしDBに保存する。
+        $filmToData = Film::findOrFail($id);
+        // dd($request->information);
+
+        //サービスで切り離したupload関数を使って画像のリサイズを行っている。
+        $image = $request->movie_image;
+        if(!is_null($image) && $image->isValid()){
+
+           $filmToImage = ImageResizeService::upload($image,'images');
+        }
+
+        $filmToData->name = $request -> name;
+        $filmToData->movie_image = $filmToImage;
+        $filmToData->movie_time = $request -> movie_time;
+        $filmToData->category = $request -> category;
+        $filmToData->information = $request -> information;
+
+        $filmToData -> save();
+
+        return redirect()
+        ->route('owner.films.index',with(['message' => '編集しました。']));
     }
 
     /**
@@ -156,6 +180,12 @@ echo $faileNameTofilm;
      */
     public function destroy($id)
     {
-        //
+        Film::findOrFail($id)->delete();
+         return redirect()
+        ->route('owner.films.index')
+         ->with(['message' => 'オーナー情報を削除しました。'
+        ]);
     }
+
+
 }
