@@ -20,7 +20,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication Guards
+    | Authentication Guards(認証ガード)
     |--------------------------------------------------------------------------
     |
     | Next, you may define every authentication guard for your application.
@@ -30,11 +30,20 @@ return [
     | All authentication drivers have a user provider. This defines how the
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
+    |(次に、アプリケーションのすべての認証ガードを定義できます。
+    |もちろん、優れたデフォルト構成が定義されています
+    |ここでは、セッションストレージとEloquentユーザープロバイダーを使用しています。
+    |
+    |すべての認証ドライバーにはユーザープロバイダーがあります。これは、
+    |ユーザーは実際にデータベースまたは他のストレージから取得されます
+    |このアプリケーションがユーザーのデータを永続化するために使用するメカニズム。)
     |
     | Supported: "session"
     |
     */
 
+
+    // providerはサービスプロバイダーとはまた違う。
     'guards' => [
         'web' => [
             'driver' => 'session',
@@ -61,16 +70,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | User Providers
+    | User Providers(ユーザープロバイダー)
     |--------------------------------------------------------------------------
     |
     | All authentication drivers have a user provider. This defines how the
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
+    |(すべての認証ドライバーにはユーザープロバイダーがあります。これは、
+    |ユーザーは実際にデータベースまたは他のストレージから取得されます
+    |このアプリケーションがユーザーのデータを永続化するために使用するメカニズム。)
+    |
     |
     | If you have multiple user tables or models you may configure multiple
     | sources which represent each model / table. These sources may then
     | be assigned to any extra authentication guards you have defined.
+    |(複数のユーザーテーブルまたはモデルがある場合は、複数を構成できます
+    |各モデル/テーブルを表すソース。これらのソースは、
+    |定義した追加の認証ガードに割り当てられます。)
     |
     | Supported: "database", "eloquent"
     |
@@ -86,10 +102,7 @@ return [
             'model' => App\Models\Owner::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+
     ],
 
     /*

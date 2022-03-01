@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
+//prefixの/はasで別名user.と付けている。
 Route::get('/', function () {
     return view('user.welcome');
 });

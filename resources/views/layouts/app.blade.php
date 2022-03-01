@@ -18,10 +18,10 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @if(auth('owners')->user())
-                @include('layouts.owner-navigation')
-            @elseif(auth('users')->user())
+            @if(auth('users')->user())
                 @include('layouts.user-navigation')
+            @elseif(auth('owners')->user())
+                @include('layouts.owner-navigation'))
             @endif
 
 

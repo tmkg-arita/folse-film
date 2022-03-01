@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 class Authenticate extends Middleware
 {
+    // prefixで付けた接頭辞.loginを変数に代入している。
     protected $user_route = 'user.login';
     protected $owner_route = 'owner.login';
 
@@ -19,13 +20,12 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        // jsonでなかったらリダイレクト
         if (! $request->expectsJson()) {
             if(Route::is('owner.*')){
                 return route($this->owner_route);
-            } elseif(Route::is('user.*')){
+            } else{
                 return route($this->user_route);
-            } else {
-                echo エラー;
             }
         }
     }

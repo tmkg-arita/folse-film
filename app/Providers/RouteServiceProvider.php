@@ -12,12 +12,14 @@ class RouteServiceProvider extends ServiceProvider
 {
     /**
      * The path to the "home" route for your application.
-     *
+     *(アプリケーションの「ホーム」ルートへのパス。)
      * This is used by Laravel authentication to redirect users after login.
-     *
+     *(これは、ログイン後にユーザーをリダイレクトするためにLaravel認証によって使用されます。)
      * @var string
      */
+    // ユーザーがログインしたらダッシュボードにリダイレクトがかかる。
     public const HOME = '/dashboard';
+    // オーナーがログインしたらオーナーのダッシュボードにリダイレクトがかかる。
     public const OWNER_HOME = '/owner/dashboard';
 
     /**
@@ -31,7 +33,7 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, etc.
-     *
+     *(ルートモデルのバインディング、パターンフィルターなどを定義します。)
      * @return void
      */
     public function boot()

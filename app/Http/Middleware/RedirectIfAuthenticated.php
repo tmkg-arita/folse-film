@@ -6,13 +6,14 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+//ログイン済みのユーザーがアクセスしてきたらリダイレクト処理
 class RedirectIfAuthenticated
 {
     private const GUARD_USER = 'users';
     private const GUARD_OWNER = 'owners';
     /**
      * Handle an incoming request.
+     * (着信要求を処理します。着信要求を処理します。)
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
@@ -32,7 +33,7 @@ class RedirectIfAuthenticated
             return redirect(RouteServiceProvider::HOME);
           }
 
-          if(Auth::guard(self::GUARD_OWNER)->check() && $request->routeIs('owner.*')){
+        if(Auth::guard(self::GUARD_OWNER)->check() && $request->routeIs('owner.*')){
             return redirect(RouteServiceProvider::OWNER_HOME);
           }
 
