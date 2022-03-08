@@ -18,8 +18,11 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
+
+        <!-- ナビゲーションメニューを分岐させている -->
             @if(auth('users')->user())
                 @include('layouts.user-navigation')
+
             @elseif(auth('owners')->user())
                 @include('layouts.owner-navigation'))
             @endif

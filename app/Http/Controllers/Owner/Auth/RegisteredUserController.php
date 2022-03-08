@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
+//ここでmodelを読み込む箇所があるので気を付ける。
 class RegisteredUserController extends Controller
 {
     /**

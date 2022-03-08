@@ -47,4 +47,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function user_index($id){
+
+        return $this->where('id',$id)->get();
+
+
+    }
 }

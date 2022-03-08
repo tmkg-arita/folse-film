@@ -26,7 +26,7 @@ class Film extends Model
 
 
     public function pagination(){
-        $filmData=$this -> paginate(4);
-        return($filmData);
+        return $this -> paginate(4);
+        
     }
 }

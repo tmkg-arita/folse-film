@@ -37,6 +37,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
 
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -46,10 +47,12 @@ class RegisteredUserController extends Controller
         ]);
 
         $userImage = $request->user_image;
+        // dd($userImage);
 
         if(!is_null($userImage) && $userImage->isValid()){
 
             $userToImage = ImageResizeService::upload($userImage,'images');
+
          }
 
         Auth::login($user = User::create([

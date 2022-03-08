@@ -2,11 +2,16 @@
 
 namespace App\Providers;
 
+use GuzzleHttp\Middleware;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AuthServiceProvider extends ServiceProvider
 {
+
+
     /**
      * The policy mappings for the application.
      *
@@ -25,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+
+      
     }
 }

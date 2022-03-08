@@ -52,7 +52,7 @@ class FilmController extends Controller
     public function index(Film $film)
     {
 
-        $films = $film->paginate(4);
+        $films = $film->paginate();
         // dd($films);
 
 

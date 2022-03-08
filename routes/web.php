@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\User\UserController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,11 @@ Route::get('/dashboard', function () {
     return view('user.dashboard');
 })->middleware(['auth:users'])->name('dashboard');
 
-
-// Route::resource('users',UserController::class)
-// ->middleware('auth:users')
-// ->except(['show']);
+ Route::get('users/{id}', [UserController::class,'index'])
+ ->middleware('auth:users');
+Route::resource('users',UserController::class)
+->middleware('auth:users')
+->except(['show']);
 
 
 
