@@ -62,7 +62,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+
+
     }
 
     /**
@@ -73,7 +74,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $userData=User::findOrFail($id);
+        return view('user.users.edit',compact('userData'));
     }
 
     /**

@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('users',UserController::class)
 ->middleware('auth:users')
-->except(['show']);
+->except(['create','store','show']);
 
 
 

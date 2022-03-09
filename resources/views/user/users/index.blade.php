@@ -10,7 +10,7 @@
 
       <div class="flex justify-center">
         <button type="button" onclick="location.href='{{route('user.dashboard')}}'" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</button>
-        <button type="submit" onclick="location.href='{{route('user.users.edit')}}'"class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">編集する</button>
+        <button type="submit" onclick="location.href='{{route('user.users.edit',['user'=>$userData->id])}}'"class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">編集する</button>
       </div>
     </div>
   </div>
