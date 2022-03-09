@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +23,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth:users'])->name('dashboard');
 
 
-// Route::resource('users',UserController::class)
-// ->middleware('auth:users')
-// ->except(['show']);
+Route::resource('users',UserController::class)
+->middleware('auth:users')
+->except(['show']);
 
 
 

@@ -6,7 +6,9 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('user.dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        <div class="w-16">
+                            <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        </div>
                     </a>
                 </div>
 
@@ -14,6 +16,9 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('user.users.index')" :active="request()->routeIs('user.users.index')">
+                    ユーザー情報
                     </x-nav-link>
                 </div>
 
@@ -66,6 +71,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('user.users.index')" :active="request()->routeIs('user.users.index')">
+                ユーザー情報
             </x-responsive-nav-link>
         </div>
 

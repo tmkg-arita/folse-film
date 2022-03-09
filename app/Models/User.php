@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 // このクラスはAuthenticatableクラスを継承しているので、他のmodelも
 // 認証機能をつけるなら同じようにuse文とAuthenticatableを継承する必要がある。
@@ -47,4 +48,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function userData($id){
+
+        $usersData=$this->findOrFail($id);
+        return($usersData);
+
+
+    }
+
 }

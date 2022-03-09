@@ -49,7 +49,7 @@ class RegisteredUserController extends Controller
 
         if(!is_null($userImage) && $userImage->isValid()){
 
-            $userToImage = ImageResizeService::upload($userImage,'images');
+            $userToImage = ImageResizeService::userImage_upload($userImage,'images');
          }
 
         Auth::login($user = User::create([

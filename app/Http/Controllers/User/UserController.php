@@ -1,8 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\FilmStoreRequest;
+use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use InterventionImage;
+use App\Services\ImageResizeService;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,9 +19,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        //
+
+        $id=Auth::id();
+        if(isset($id)){
+        $userData=$user->userData($id);
+        }else{
+            abort(409);
+        }
+
+
+        return view('user.users.index',compact('userData'));
     }
 
     /**
