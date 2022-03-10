@@ -41,15 +41,21 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
+            // user_imageはnullを登録しデフォルトの画像を表示する。
             'user_image' => 'image|mimes:jpg,jpeg,png|max:2048',
-            'information' => 'string|max:1500',
+            //informationはnullを許容する。
+            'information' => 'nullable|string|max:1500',
         ]);
 
+        // ユーザーの画像をリサイズして登録。service->imageresizeserviceに登録しているアプリを使っている。
         $userImage = $request->user_image;
 
+        // ユーザーの画像があれば登録、nullならデフォルトの画像を表示するようにしている。
         if(!is_null($userImage) && $userImage->isValid()){
 
             $userToImage = ImageResizeService::userImage_upload($userImage,'images');
+         }else{
+             $userToImage = null;
          }
 
         Auth::login($user = User::create([

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageResizeService
 {
+    // 画像をリサイズして登録する関数(1920*1080)
     public static function upload($imageFile,$folderName){
 
 
@@ -25,6 +26,8 @@ class ImageResizeService
             return $faileNameTofilm;
 }
 
+
+ // 画像をリサイズして登録する関数(256*256)
 public static function userImage_upload($userImageFile,$folderName){
 
 
@@ -32,9 +35,11 @@ public static function userImage_upload($userImageFile,$folderName){
     $userResizeImage=InterventionImage::make($userImageFile)
     ->resize(256,256)->encode();
 
-
+    // 画像のファイル名を生成している。
     $userFileName = uniqid(rand().'_');
+    // 拡張子取得
     $extension = $userImageFile->extension();
+    // ランダムで付けた名前と拡張子を結合して変数に格納
     $faileNameToUser = $userFileName.'.'.$extension;
     storage::put('public/' .$folderName . '/' . $faileNameToUser,$userResizeImage);
     return $faileNameToUser;
