@@ -95,17 +95,16 @@ class UserController extends Controller
         $image = $request->user_image;
 
         // 画像はnullなら既存のDBからデータを取得。
-        if($image == null){
-            $userToImage = $userToData->user_image;
-        // null以外は画像があるということなのでリサイズして変数に格納。
-        }else{
+        if($image !== null){
             $userToImage = ImageResizeService::userImage_upload($image,'images');
+            $userToData->user_image = $userToImage;
+        // null以外は画像があるということなのでリサイズして変数に格納。
         }
         // dd($userToImage);
 
         $userToData->name = $request -> name;
         $userToData->email = $request -> email;
-        $userToData->user_image = $userToImage;
+
         $userToData->information = $request -> information;
 
         $userToData -> save();

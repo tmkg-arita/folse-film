@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Director;
 
 
 class Film extends Model
@@ -16,6 +17,7 @@ class Film extends Model
 
 
     protected $fillable = [
+        'Director_id',
         'name',
         'movie_image',
         'movie_time',
@@ -23,7 +25,9 @@ class Film extends Model
         'information',
 
     ];
-
+    public function Director(){
+        return $this->belongsTo(Director::class);
+    }
 
     public function pagination(){
         $filmData=$this -> paginate(4);
