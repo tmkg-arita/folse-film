@@ -9,11 +9,12 @@ use App\Http\Requests\FilmStoreRequest;
 use Illuminate\Support\Facades\Route;
 use App\Models\Owner;
 use App\Models\Film;
+use App\Models\Director;
 use InterventionImage;
+use Throwable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Services\ImageResizeService;
-
-
-
 
 
 class FilmController extends Controller
@@ -98,19 +99,34 @@ class FilmController extends Controller
 
         // echo $faileNameTofilm;
 
-       $film = Film::create([
-                      'name' => $request->name,
-                      'movie_image' =>$filmToData,
-                      'movie_time' => (int)$request->movie_time,
-                      'category' => $request->category,
-                      'information' => $request->information,
+        //リレーション（director,filmのテーブル）に同時に保存するためにトランザクション処理を行う。
 
+        // dd($request);
+        try{
+            DB::transaction(function () use($request,$filmToData) {
+                $director_Data=Director::create([
+                    'director_name' => $request->director_name,
+                    'director_age' => (int)$request->director_age,
+                    'director_gender' => (int)$request->director_gender,
 
-    ]);
-        $film->save();
+            ]);
+                Film::create([
+                'name' => $request->name,
+                'director_id' => (int)$director_Data->id,
+                'movie_image' =>$filmToData,
+                'movie_time' => (int)$request->movie_time,
+                'category' => $request->category,
+                'information' => $request->information,
+            ]);
+
+                //   $film->save();
+        },2);
+        }catch(Throwabler $e){
+            Log::error($e);
+            throw $e;
+        };
         return redirect()
         ->route('owner.films.index');
-
     }
 
     /**

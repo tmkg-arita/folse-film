@@ -30,6 +30,9 @@ class FilmStoreRequest extends FormRequest
             'movie_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'movie_time' => 'required|integer',
             'category' => 'required',
+            'director_name' =>'required|string|max:20',
+            'director_age' =>'nullable|integer',
+            'director_gender' =>'nullable|',
 
         ];
     }
@@ -39,11 +42,13 @@ class FilmStoreRequest extends FormRequest
        return [
         'required'=>'入力して下さい。',
         'name.max'=>'名前は20字以内で入力してください。',
+        'director_name.max'=>'名前は20字以内で入力してください。',
         'information.max'=>'あらすじは10文字以上1500文字以内で入力して下さい。',
         'movie_image.image' =>'指定されたファイルが画像ではありません',
         'movie_image.mimes' =>'指定された拡張子(jpg/jpeg/png)ではありません',
         'movie_image.max' =>'ファイルサイズは2MB以内にして下さい。',
-        'movie_time.integer'=>'上映時間は数字で入力して下さい。'
+        'movie_time.integer'=>'上映時間は数字で入力して下さい。',
+        'director_age.integer' => '年齢は数字で入力して下さい。'
        ];
     }
 }

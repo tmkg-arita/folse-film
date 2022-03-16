@@ -24,6 +24,7 @@
                             <input type="text" id="name" name="name" required value="{{ old('name') }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
+
                     <div class="p-2 w-1/2">
                         <div class="relative">
                             <label for="movie_time" class="leading-7 text-sm text-gray-600">上映時間<span class="text-xs text-red-600">※必須</br></label>
@@ -57,23 +58,27 @@
                                     <input type="radio" name="category" value=9 {{ old('category',9) == 9 ? 'checked' : '' }}>SF映画
                                     <input type="radio" name="category" value=10 {{ old('category',10) == 10 ? 'checked' : '' }}>ドキュメンタリー
                                 </div>
-                        </div>
-                    </div>
-                    <div class="mt-16 flex justify-around p-2 w-full">
-                            <button type="button" onclick="location.href='{{route('owner.films.index')}}'" class="text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">戻る</button>
-                            <button type="submit" class="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">登録する</button>
+                            </div>
+
                     </div>
 
-
-
-
-
-
-
-
-
-                </div>
+                    </div>
              </div>
+
+             <!-- 監督の入力 -->
+            <x-director-form />
+                <div class="mt-16 flex justify-around p-2 w-full">
+                    <button type="button" onclick="location.href='{{route('owner.films.index')}}'" class="text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">戻る</button>
+                    <button type="submit" class="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">登録する</button>
+                </div>
+         
+
+
+
+
+
+
+
     </form>
   </div>
 </section>
