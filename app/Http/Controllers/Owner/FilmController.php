@@ -70,10 +70,12 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Director $director)
     {
+        $director_names= $director->directorName();
 
-        return view('owner.films.create');
+        // dd($director_names);
+        return view('owner.films.create',compact('director_names'));
     }
 
     /**
@@ -84,7 +86,27 @@ class FilmController extends Controller
      */
     public function store(FilmStoreRequest $request)
     {
-        //FilmStoreRequest
+
+        //  selectの名前が選択されており、且つ手入力がnullの場合、selectで選択された名前がDirectorのDBに保存するために
+        //  $director_name変数に格納している。
+         if(! is_null($request -> select_director_name) && is_null($request->director_name)){
+                $directorToDataName = $request -> select_director_name;
+        }elseif(! is_null($request->director_name) && is_null($request -> select_director_name)){
+                $directorToDataName = $request -> director_name;
+        }elseif(! is_null($request->director_name) && ! is_null($request -> select_director_name)){
+            //※※※※※※※※※※※※※※※※※※※※※※※※※
+            //ここのフラッシュメッセージはjavascriptで作りたい。
+            //※※※※※※※※※※※※※※※※※※※※※※※※※
+            return redirect()->route('owner.films.create')->with(['flash_message' => '監督名が二つ選択されています。']);
+             // ここのフラッシュメッセージはjavascriptで作りたい。
+        }
+        // ※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※
+        //上記のif文について！
+        //03/22現在、selectで選んで、手入力の方も入力するとエラーにならずに手入力の方が登録されてしまう。
+        // elseif(! is_null($request->director_name) && ! is_null($request -> select_director_name))の構文を足すと
+        // 解消されるが、何故いるのかわからない。
+        //※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※
+
 
         // dd($request->category);
         $image = $request->movie_image;
@@ -97,15 +119,11 @@ class FilmController extends Controller
         }
 
 
-        // echo $faileNameTofilm;
-
         //リレーション（director,filmのテーブル）に同時に保存するためにトランザクション処理を行う。
-
-        // dd($request);
         try{
-            DB::transaction(function () use($request,$filmToData) {
+            DB::transaction(function () use($request,$directorToDataName,$filmToData) {
                 $director_Data=Director::create([
-                    'director_name' => $request->director_name,
+                    'director_name' => $directorToDataName,
                     'director_age' => (int)$request->director_age,
                     'director_gender' => (int)$request->director_gender,
 
@@ -125,8 +143,12 @@ class FilmController extends Controller
             Log::error($e);
             throw $e;
         };
+
+        //※※※※※※※※※※※※※※※※※※※※※※※※※
+        //ここのフラッシュメッセージはjavascriptで作りたい。
+        //※※※※※※※※※※※※※※※※※※※※※※※※※
         return redirect()
-        ->route('owner.films.index');
+        ->route('owner.films.index')->with(['flash_message'=>'登録完了']);
     }
 
     /**
@@ -184,8 +206,12 @@ class FilmController extends Controller
 
         $filmToData -> save();
 
+
+        //※※※※※※※※※※※※※※※※※※※※※※※※※
+        //ここのフラッシュメッセージはjavascriptで作りたい。
+        //※※※※※※※※※※※※※※※※※※※※※※※※※
         return redirect()
-        ->route('owner.films.index',with(['message' => '編集しました。']));
+        ->route('owner.films.index',with(['flash_message' => '編集しました。']));
     }
 
     /**
@@ -199,8 +225,11 @@ class FilmController extends Controller
         Film::findOrFail($id)->delete();
          return redirect()
         ->route('owner.films.index')
-         ->with(['message' => 'オーナー情報を削除しました。'
+         ->with(['flash_message' => 'オーナー情報を削除しました。'
         ]);
+        //※※※※※※※※※※※※※※※※※※※※※※※※※
+        //ここのフラッシュメッセージはjavascriptで作りたい。
+        //※※※※※※※※※※※※※※※※※※※※※※※※※
     }
 
 

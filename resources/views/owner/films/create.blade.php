@@ -7,10 +7,10 @@
 
     <section class="text-gray-600 body-font relative">
   <div class="container px-5 py-24 mx-auto">
-    <div class="flex flex-col text-center w-full mb-8">
-      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">新規登録</h1>
-      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">各項目を記入してください。</p>
-    </div>
+        <div class="flex flex-col text-center w-full mb-8">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">新規登録</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">各項目を記入してください。</p>
+        </div>
     <form form method="post" action="{{ route('owner.films.store')}}" enctype="multipart/form-data">
             @csrf
 
@@ -65,19 +65,69 @@
                     </div>
              </div>
 
-             <!-- 監督の入力 -->
-            <x-director-form />
+            <!-- 監督の入力 -->
+            <div class="lg:w-1/2 md:w-2/3 border-black border-solid  mx-auto">
+
+                <div class="text-xl mt-16">
+                    <h2> 監督情報</h2>
+                </div>
+                <div class="flex flex-wrap -m-2">
+                <div class="p-2 w-1/2">
+                    <div class="relative">
+                        <label for="select_director_name" class="leading-7 text-sm text-gray-600">監督名<span class="text-red-700 text-xs">※ここに存在しない監督名は手入力して下さい。</span></label>
+                            <select name="select_director_name" id="select_director_name">
+
+                                <option value="">--監督名を選択して下さい--</option>
+                                @foreach ($director_names as $directorName )
+
+                                <!-- ここのoldが効かない。 -->
+                                <!-- バリデーションかける方法を探す。 -->
+                                <!-- director nameには、文字を指定してください。とバリデーションがかかる -->
+                                <option value="{{$directorName->director_name}}" @if(old('select_director_name') =='{{$directorName->director_name}}') selected  @endif>{{$directorName->director_name}}</option>
+                                <!-- <option value="cat">Cat</option>
+                                <option value="hamster">Hamster</option>
+                                <option value="parrot">Parrot</option>
+                                <option value="spider">Spider</option>
+                                <option value="goldfish">Goldfish</option> -->
+                                @endforeach
+                            </select>
+                    </div>
+                </div>
+                <div class="p-2 w-1/2">
+                    <!-- ここのフラッシュメッセージはjavascriptで作りたい。 -->
+                @if (session('flash_message'))
+                <div class="flash_message text-red-700 text-xl">
+                    {{ session('flash_message') }}
+                </div>
+                @endif
+                    <div class="relative">
+                        <label for="director_name" class="leading-7 text-sm text-gray-600">監督名<span class="text-red-700 text-xs">※手入力用</span></label>
+                        <input type="text" id="director_name" name="director_name" value="{{ old('director_name') }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+                </div>
+                <div class="p-2 w-1/2">
+                    <div class="relative">
+                        <label for="director_age" class="leading-7 text-sm text-gray-600">年齢(監督)</label><br/>
+                        <input type="text" id="director_age" name="director_age" value="{{ old('director_age') }}" class="w-1/4 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">歳
+                    </div>
+                </div>
+                <div class="p-2 w-1/2">
+                    <div class="relative">
+                        <div class=" leading-7 text-sm text-gray-600">性別(監督)</div>
+                            <div class="w-full flex justify-around">
+                                <input type="radio" name="director_gender" value=0 {{ old('director_gender',0) == 1 ? 'checked' : '' }}>男性
+                                <input type="radio" name="director_gender" value=1 {{ old('director_gender',1) == 2 ? 'checked' : '' }}>女性
+                            </div>
+                    </div>
+                </div>
+                </div>
+
+
                 <div class="mt-16 flex justify-around p-2 w-full">
                     <button type="button" onclick="location.href='{{route('owner.films.index')}}'" class="text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">戻る</button>
                     <button type="submit" class="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">登録する</button>
                 </div>
-         
-
-
-
-
-
-
 
     </form>
   </div>

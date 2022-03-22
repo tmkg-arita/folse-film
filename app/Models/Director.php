@@ -20,4 +20,9 @@ class Director extends Model
     public function film(){
         return $this->hasMany(Film::class);
     }
+
+    public function directorName(){
+        $directorNames=$this -> all();
+        return($directorNames);
+    }
 }

@@ -15,6 +15,12 @@
             <button onclick="location.href='{{route('owner.films.create')}}'" class="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">新規登録</button>
 
       </div>
+     <!-- ここのフラッシュメッセージはjavascriptで作りたい。 -->
+      @if (session('flash_message'))
+                <div class="flash_message text-red-700 text-xl">
+                    {{ session('flash_message') }}
+                </div>
+      @endif
   </div>
     <!-- ここにforeachが入る -->
 
@@ -24,8 +30,8 @@
         <div class="m-4">
         <div class="sm:flex justify-around flex-wrap m-4">
             @foreach ($films as $film )
-
-            <a href="{{route('owner.films.edit', ['film' => $film->id])}}">
+            <div>
+                <a href="{{route('owner.films.edit', ['film' => $film->id])}}">
                     <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
                         <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ asset('storage/images/'.$film->movie_image) }}" alt="content">
                         <h2 class="text-lg tracking-widest text-blue-400 font-medium title-font">{{$film -> name}}</h2>
@@ -37,7 +43,7 @@
 
 
                     </div>
-                    </a>
+                </a>
                     <form method="post" action="{{ route('owner.films.destroy', ['film' => $film->id]) }}">
                     @csrf
                     @method('delete')
@@ -45,6 +51,7 @@
                         <button type="submit" onclick="return confirm('本当に削除しますか？')" class="text-white bg-pink-400 border-0 py-1 px-1 focus:outline-none hover:bg-blue-500 rounded">削除する</button>
                     </div>
                 </form>
+            </div>
             @endforeach
             </div>
         </div>
